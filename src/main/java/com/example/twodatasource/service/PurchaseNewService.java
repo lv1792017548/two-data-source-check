@@ -17,7 +17,7 @@ public interface PurchaseNewService {
 
     List<Purchase> selectList(QueryWrapper<Purchase> record);
 
-
+    int update(Purchase record);
 
 
 }

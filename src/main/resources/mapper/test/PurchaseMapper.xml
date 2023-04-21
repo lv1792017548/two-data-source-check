@@ -32,12 +32,39 @@
     delete from purchase
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
+ <!-- <update id="updateUser" parameterType="com.example.User">
+    UPDATE users SET name = #{name}, age = #{age} WHERE id = #{id}
+  </update>
+-->
+  <update id="updatePurchaseById" parameterType="com.example.twodatasource.entity.Purchase">
+    update Purchase
+    <set>
+      <if test="purchaseName != null and purchaseName != ''">
+        purchase_name = #{purchaseName},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+      <if test="updater != null and updater != ''">
+        updater = #{updater},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark},
+      </if>
+      <if test="status != null">
+        status = #{status}
+      </if>
+    </set>
+    where id = #{id};
+  </update>
+
   <insert id="insert" parameterType="com.example.twodatasource.entity.Purchase">
-    insert into purchase (id, purchase_no, purchase_name, 
+    insert into purchase (purchase_no, purchase_name,
       remark, status, creator, 
       create_time, updater, update_time
       )
-    values (#{id,jdbcType=BIGINT}, #{purchaseNo,jdbcType=VARCHAR}, #{purchaseName,jdbcType=VARCHAR}, 
+    values (#{purchaseNo,jdbcType=VARCHAR}, #{purchaseName,jdbcType=VARCHAR},
       #{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )

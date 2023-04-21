@@ -33,6 +33,31 @@
     delete from purchase_old
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
+
+  <update id="updatePurchaseById" parameterType="com.example.twodatasource.entity.PurchaseOld">
+    update Purchase
+    <set>
+      <if test="purchaseName != null and purchaseName != ''">
+        purchase_name = #{purchaseName},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+      <if test="updater != null and updater != ''">
+        updater = #{updater},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark},
+      </if>
+      <if test="status != null">
+        status = #{status}
+      </if>
+    </set>
+    where id = #{id};
+  </update>
+
+
   <insert id="insert" parameterType="com.example.twodatasource.entity.PurchaseOld">
     insert into purchase_old (id, purchase_no, purchase_name, 
       remark, status, creator, 

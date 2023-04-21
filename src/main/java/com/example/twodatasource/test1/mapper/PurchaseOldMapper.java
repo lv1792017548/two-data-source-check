@@ -18,4 +18,7 @@ public interface PurchaseOldMapper extends BaseMapper<PurchaseOld> {
     PurchaseOld selectByPrimaryKey(Long id);
 
     PurchaseOld selectByNo(String no);
+
+    int updatePurchaseById(PurchaseOld record);
+
 }

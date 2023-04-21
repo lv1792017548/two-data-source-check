@@ -37,4 +37,10 @@ public class PurchaseNewServiceImpl implements PurchaseNewService {
         return purchaseMapper.selectList(queryWrapperOld);
     }
 
+    @Override
+    public int update(Purchase record) {
+
+        return purchaseMapper.updatePurchaseById(record);
+    }
+
 }

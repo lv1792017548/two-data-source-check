@@ -30,4 +30,12 @@ public class User implements Serializable {
     private String comment;
 
 
+    public static void main(String[] args) {
+
+
+
+    }
+
 }
+
+

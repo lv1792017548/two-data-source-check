@@ -17,5 +17,6 @@ public interface PurchaseMapper extends BaseMapper<Purchase> {
 
     Purchase selectByNo(String no);
 
+    int updatePurchaseById(Purchase record);
 
 }

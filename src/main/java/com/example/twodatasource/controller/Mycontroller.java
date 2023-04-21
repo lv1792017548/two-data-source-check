@@ -14,6 +14,7 @@ import com.example.twodatasource.test1.mapper.PurchaseOldMapper;
 import com.example.twodatasource.test1.mapper.UserMapper1;
 import com.example.twodatasource.util.CheckPurchaseUtil;
 import com.example.twodatasource.util.CommonBeanUtils;
+import com.example.twodatasource.util.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,11 @@ public class Mycontroller {
     private PurchaseNewService purchaseNewService;
 
     @GetMapping("/check/purchase/{purchaseNo}")
-    public List<String> checkPurchase(@PathVariable("purchaseNo")  String purchaseNo) {
+    public R checkPurchase(@PathVariable("purchaseNo")  String purchaseNo) {
         List<String> list = new ArrayList<>();
         if (null == purchaseNo || "" == purchaseNo) {
             list.add("purchaseNo不能为空！");
-            return list;
+            return R.error();
         }
         QueryWrapper<PurchaseOld> queryWrapperOld = new QueryWrapper();
         queryWrapperOld.eq("purchase_no", purchaseNo);//必须是数据库中的字段
@@ -56,21 +57,34 @@ public class Mycontroller {
         Purchase purchase =  purchaseNewService.selectOne(queryWrapperNew);
         log.info("purchase:【{}】", JSON.toJSONString(purchase));
 
-        return CheckPurchaseUtil.checkPurchase(purchaseOld,purchase);
+        return R.ok().data("checkResult",CheckPurchaseUtil.checkPurchase(purchaseOld,purchase));
     }
 
     @PostMapping("/insert/purchase")
-    public void synPurchase(@RequestBody Purchase pu) {
+    public R  synPurchase(@RequestBody Purchase pu) {
+        pu.setCreateTime(new Date());
+        pu.setUpdateTime(new Date());
+        log.info("Purchase插入:【{}】", JSON.toJSONString(pu));
+        if(purchaseNewService.insert(pu)>=1) {
+           PurchaseOld purchaseOld = CommonBeanUtils.beanCopy(pu,PurchaseOld.class);
+           log.info("PurchaseOld插入:【{}】", JSON.toJSONString(purchaseOld));
+           return   R.ok().data("insertStatus",purchaseOldService.insert(purchaseOld));
+       }
+       return null;
+    }
+
+    @PostMapping("/update/purchase")
+    public R updatePurchase(@RequestBody Purchase pu) {
         log.info("Purchase更新:【{}】", JSON.toJSONString(pu));
         pu.setCreateTime(new Date());
         pu.setUpdateTime(new Date());
-       if(purchaseNewService.insert(pu)>=1) {
-           PurchaseOld purchaseOld = CommonBeanUtils.beanCopy(pu,PurchaseOld.class);
-           log.info("PurchaseOld更新:【{}】", JSON.toJSONString(purchaseOld));
-           purchaseOldService.insert(purchaseOld);
-       }
+        if(purchaseNewService.update(pu)>=1) {
+            PurchaseOld purchaseOld = CommonBeanUtils.beanCopy(pu,PurchaseOld.class);
+            log.info("PurchaseOld更新:【{}】", JSON.toJSONString(purchaseOld));
+            return  R.ok().data("updateStatus",purchaseOldService.update(purchaseOld));
+        }
+        return  null;
     }
-
     @GetMapping("/checkAfterMigrate/purchase/{type}")
     public void checkAfterMigratePurchase(@PathVariable("type")  String type,@RequestParam("param") int param) {
         log.info("迁移后校验类型:{}", JSON.toJSONString(type));

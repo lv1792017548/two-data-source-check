@@ -8,42 +8,54 @@ import java.util.List;
 
 public class CheckPurchaseUtil {
 
-    public static List<String> checkPurchase(PurchaseOld purchaseOld, Purchase purchase){
+    public static List<String> checkPurchase(PurchaseOld purchaseOld, Purchase purchase) {
 
         List<String> list = new ArrayList<>();
 
-        if (!purchaseOld.getPurchaseName().equals(purchase.getPurchaseName())){
-            list.add(purchaseOld.getPurchaseNo() +"purchaseName不一致！");
-        }else if (!purchaseOld.getCreateTime().equals(purchase.getCreateTime())){
-            list.add(purchaseOld.getPurchaseNo() +"createTime不一致！");
+        if (purchase == null || purchaseOld == null) {
+            list.add("新库或老库无该数据");
+            return list;
+        }
+        String prefix = "采购单编号:"+purchaseOld.getPurchaseNo();
 
-        }else if (!purchaseOld.getCreator().equals(purchase.getCreator())){
-            list.add(purchaseOld.getPurchaseNo() +"creator不一致！");
-
-        }else if (!purchaseOld.getRemark().equals(purchase.getRemark())){
-            list.add(purchaseOld.getPurchaseNo() +"remark不一致！");
-
-        }else if (!purchaseOld.getStatus().equals(purchase.getStatus())){
-            list.add(purchaseOld.getPurchaseNo() +"status不一致！");
-
-        }else if (!purchaseOld.getUpdater().equals(purchase.getUpdater())){
-            list.add(purchaseOld.getPurchaseNo() +"updater不一致！");
-
-        }else if (!purchaseOld.getUpdateTime().equals(purchase.getUpdateTime())){
-            list.add(purchaseOld.getPurchaseNo() +"updateTime不一致！");
-
-        }else {
-            list.add(purchaseOld.getPurchaseNo() +":两张表保持一致！");
+        if (!purchaseOld.getPurchaseName().equals(purchase.getPurchaseName())) {
+            list.add(prefix + ":purchaseName不一致！");
+        }
+        if (!purchaseOld.getCreateTime().equals(purchase.getCreateTime())) {
+            list.add(prefix + ":createTime不一致！");
 
         }
-        return  list;
+        if (!purchaseOld.getCreator().equals(purchase.getCreator())) {
+            list.add(prefix + ":creator不一致！");
+
+        }
+        if (!purchaseOld.getRemark().equals(purchase.getRemark())) {
+            list.add(prefix + ":remark不一致！");
+
+        }
+        if (!purchaseOld.getStatus().equals(purchase.getStatus())) {
+            list.add(prefix + ":status不一致！");
+
+        }
+        if (!purchaseOld.getUpdater().equals(purchase.getUpdater())) {
+            list.add(prefix + ":updater不一致！");
+
+        }
+
+        if (!purchaseOld.getUpdateTime().equals(purchase.getUpdateTime())) {
+            list.add(prefix + ":updateTime不一致！");
+        }
+        if (list.size()==0){
+            list.add(prefix + ":两张表保持一致！");
+        }
+
+        return list;
     }
 
 
-    public static List<String> checkPurchase(List<PurchaseOld> purchaseOld, List<Purchase> purchase,String type,Integer param){
+    public static List<String> checkPurchase(List<PurchaseOld> purchaseOld, List<Purchase> purchase, String type, Integer param) {
 
 
-
-        return  null;
+        return null;
     }
 }
