@@ -49,7 +49,7 @@ public class BusinessListener {
         for(CanalEntry.Column column : afterColumnsList){
             afterData.put(column.getName(),column.getValue());
         }
-        log.info("Canal监测到更新之后:【{}】", afterData);
+        log.info("Canal监测到更新的新数据:【{}】", afterData);
 
         try {
             String purchaseNo = afterData.getString("purchase_no");
@@ -57,19 +57,19 @@ public class BusinessListener {
             QueryWrapper<PurchaseOld> queryWrapperOld = new QueryWrapper();
             queryWrapperOld.eq("purchase_no", purchaseNo);//必须是数据库中的字段
             PurchaseOld purchaseOld =  purchaseOldService.selectOne(queryWrapperOld);
-            log.info("purchaseOld:【{}】", JSON.toJSONString(purchaseOld));
+            log.info("查询老数据库中 采购单的数据:purchaseOld【{}】", JSON.toJSONString(purchaseOld));
 
 
-
+            log.info("==================================分界线================================================");
 
             QueryWrapper<Purchase> queryWrapperNew = new QueryWrapper();
             queryWrapperNew.eq("purchase_no", purchaseNo);//必须是数据库中的字段
             Purchase purchase =  purchaseNewService.selectOne(queryWrapperNew);
-            log.info("purchase:【{}】", JSON.toJSONString(purchase));
+            log.info("查询新数据库中 采购单的数据:purchaseNew:【{}】", JSON.toJSONString(purchase));
 
             List<String>  list=  CheckPurchaseUtil.checkPurchase(purchaseOld,purchase);
 
-            log.info("新老数据库校验后:{}", JSON.toJSONString(list));
+            log.info("新老数据库校验结果:{}", JSON.toJSONString(list));
         }catch (Exception e){
             log.info("Canal监测到Exception {}", e.getMessage());
 
