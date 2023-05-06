@@ -60,8 +60,6 @@ v2:springboot集成 canal，监听新库的binlog（前提是，采购单落入�
 
 - 项目参与者: 四哥
 
-- 技术支持邮箱: 15921340874@163.com
-
 - 个人公众号：懂Java的测试
 
 - 个人微信: `lvceshikaifa`
