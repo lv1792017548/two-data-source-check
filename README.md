@@ -58,6 +58,7 @@ v2:springboot集成 canal，监听新库的binlog（前提是，采购单落入�
 
 ## 校验逻辑关键类解析
 
+![image](https://user-images.githubusercontent.com/51152391/236608811-de7d9d68-50ff-4cdd-86f1-e6982ed01fc9.png)
 
 
 
