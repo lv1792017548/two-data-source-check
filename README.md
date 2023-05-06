@@ -48,7 +48,101 @@ v2:springboot集成 canal，监听新库的binlog（前提是，采购单落入�
 
 - 安装mysql 5.7版本
 
-   
+## 数据库ddl
+
+### 老数据库
+
+```
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50736
+Source Host           : localhost:3306
+Source Database       : scmold
+
+Target Server Type    : MYSQL
+Target Server Version : 50736
+File Encoding         : 65001
+
+Date: 2023-05-06 15:51:05
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for purchase_old
+-- ----------------------------
+DROP TABLE IF EXISTS `purchase_old`;
+CREATE TABLE `purchase_old` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '采购单id',
+  `purchase_no` varchar(225) DEFAULT NULL COMMENT '采购单编号',
+  `purchase_name` varchar(255) DEFAULT NULL COMMENT '采购单名称',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `status` int(10) unsigned DEFAULT '1' COMMENT '采购单状态 1：展示；0：已删除',
+  `creator` varchar(64) DEFAULT '' COMMENT '创建者',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updater` varchar(64) DEFAULT '' COMMENT '更新者',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniqe_key_purchase_no` (`purchase_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=1649308976409571331 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of purchase_old
+-- ----------------------------
+INSERT INTO `purchase_old` VALUES ('1649304741815095298', '171bb093-c727-4ecd-b29a-9f19131e6b94', '测试数据', '这是测试数据', '0', '四哥', '2023-04-21 06:51:08', '四哥', '2023-04-21 06:51:08');
+INSERT INTO `purchase_old` VALUES ('1649305378741043201', 'cd0c199f-4cc4-4dda-a1a9-2d9953e7ce91', '测试数据', '这是测试数据', '0', '四哥', '2023-04-21 06:53:40', '四哥', '2023-04-21 06:53:40');
+INSERT INTO `purchase_old` VALUES ('1649305771260825601', 'c9720a03-4fd6-4583-89e1-283d52418710', '测试数据', '这是测试数据', '0', '四哥', '2023-04-21 06:55:13', '四哥', '2023-04-21 06:55:13');
+INSERT INTO `purchase_old` VALUES ('1649306952443940865', 'be06ef9f-afe3-4bf8-b561-124fe18a7d65', '测试数据', '这是测试数据', '0', '四哥', '2023-04-21 06:59:55', '四哥', '2023-04-21 06:59:55');
+INSERT INTO `purchase_old` VALUES ('1649307002247106562', 'eb8908c0-08f1-474b-adf3-71844a4f33e6', '测试数据', '这是测试数据', '0', '四哥', '2023-04-21 07:00:07', '四哥', '2023-04-21 07:00:07');
+INSERT INTO `purchase_old` VALUES ('1649308976409571330', 'po4678745745', '测试数据', '这是测试数据', '0', '四哥', '2023-04-21 07:07:57', '四哥', '2023-04-21 07:07:57');
+
+```
+
+
+
+### 新数据库
+
+```
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50736
+Source Host           : localhost:3306
+Source Database       : scm
+
+Target Server Type    : MYSQL
+Target Server Version : 50736
+File Encoding         : 65001
+
+Date: 2023-05-06 15:54:20
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for purchase
+-- ----------------------------
+DROP TABLE IF EXISTS `purchase`;
+CREATE TABLE `purchase` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '采购单id',
+  `purchase_no` varchar(225) DEFAULT NULL COMMENT '采购单编号',
+  `purchase_name` varchar(255) DEFAULT NULL COMMENT '采购单名称',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `status` int(10) unsigned DEFAULT '1' COMMENT '采购单状态 1：展示；0：已删除',
+  `creator` varchar(64) DEFAULT '' COMMENT '创建者',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updater` varchar(64) DEFAULT '' COMMENT '更新者',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniqe_key_purchase_no` (`purchase_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=1649288609091629064 DEFAULT CHARSET=utf8mb4;
+
+```
+
+
 
 ## 适用场景
 
