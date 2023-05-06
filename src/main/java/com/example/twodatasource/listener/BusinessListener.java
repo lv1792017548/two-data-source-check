@@ -1,4 +1,4 @@
-package com.example.twodatasource.util;
+package com.example.twodatasource.listener;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -9,6 +9,7 @@ import com.example.twodatasource.entity.PurchaseOld;
 import com.example.twodatasource.service.PurchaseNewService;
 import com.example.twodatasource.service.PurchaseOldService;
 
+import com.example.twodatasource.util.CheckPurchaseUtil;
 import com.xpand.starter.canal.annotation.CanalEventListener;
 import com.xpand.starter.canal.annotation.ListenPoint;
 import lombok.extern.slf4j.Slf4j;
