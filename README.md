@@ -160,6 +160,8 @@ CREATE TABLE `purchase` (
 ## 交流群
 
 - 项目参与者: 四哥
+![微信图片_20230213112727](https://user-images.githubusercontent.com/51152391/236609043-e3146623-e808-456d-822b-1ca64b9a9e2c.jpg)
+
 
 - 个人公众号：懂Java的测试
 
